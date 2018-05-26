@@ -47,6 +47,7 @@ Module=modTray; model\trayModel.bas
 Module=modCheckWndActivate; model\windowActivateModel.bas
 Module=modWnd; model\windowModel.bas
 Module=modWinsock; model\winsockModel.bas
+Class=common; class\common.cls
 Startup="(None)"
 HelpFile=""
 Title="cyWinDLL"

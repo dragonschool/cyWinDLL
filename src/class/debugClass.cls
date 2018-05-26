@@ -274,15 +274,6 @@ Private Function CompareResult_DAT(ByVal datValue1 As Date, ByVal datValue2 As D
    CompareResult_DAT = CompareResult_DAT Xor blnDescending
 End Function
 
-'函数名称:cyShowDB
-'作用：显示数据库或数据集
-'===========================================================
-'整理时间：2006-8-26 12:58
-'  参数：
-'===========================================================
-Sub cyShowDB()
-
-End Sub
 
 '过程名称:cyShowHwnd
 

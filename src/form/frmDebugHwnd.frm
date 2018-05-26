@@ -292,7 +292,6 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-
 Private Type RECT
     Left As Long
     Top As Long
@@ -327,6 +326,7 @@ Attribute tmrCheckWndActive.VB_VarHelpID = -1
 
 '∑≈¥Ûœ‘ æ
 Private Sub chkScale_Click()
+
 End Sub
 
 Private Sub cmd_Click(Index As Integer)

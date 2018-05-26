@@ -2,13 +2,13 @@ VERSION 5.00
 Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.5#0"; "comctl32.ocx"
 Begin VB.Form frmTesting 
    Caption         =   "Form1"
-   ClientHeight    =   5040
+   ClientHeight    =   8475
    ClientLeft      =   1905
    ClientTop       =   1920
-   ClientWidth     =   5955
+   ClientWidth     =   9825
    LinkTopic       =   "Form1"
-   ScaleHeight     =   5040
-   ScaleWidth      =   5955
+   ScaleHeight     =   8475
+   ScaleWidth      =   9825
    Begin VB.CommandButton Command2 
       Caption         =   "Command2"
       Height          =   735
@@ -88,14 +88,13 @@ Attribute VB_Exposed = False
 Dim WithEvents winSockClass As winSockClass
 Attribute winSockClass.VB_VarHelpID = -1
 
-Private Sub Form_Load()
+Private Sub Command1_Click()
 
-Dim fileClass As New fileClass
-fileClass.cyXCOPY "E:\old file", "c:\a"
+Dim dbug As New debugClass
+dbug.cyShowHwnd
 
 
 
-Dim dBug As New debugClass
-'dBug.cyShowHwnd
 
 End Sub
+

@@ -15,17 +15,17 @@ Option Explicit
 
 '窗口得到焦点
 Public Event cyWndActivate()
+
 '窗口失去焦点
 Public Event cyWndDeActivate()
 
 '保存接收MouseWheel的窗口句柄
 Dim m_iCheckActivateHwnd As Long
 
-Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" _
-   (ByVal hWnd As Long, ByVal nIndex As Long, _
-     ByVal dwNewLong As Long) As Long
+Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
 
 Public Sub cySetCheckWndActivate(ByVal iCheckActivateHwnd As Long)
+    
     On Error Resume Next
     
     If modCheckWndActivate.preCheckWndActivateProc = 0 Then
@@ -34,7 +34,6 @@ Public Sub cySetCheckWndActivate(ByVal iCheckActivateHwnd As Long)
         
         '记录接管前的地址信息
         modCheckWndActivate.preCheckWndActivateProc = SetWindowLong(iCheckActivateHwnd, (-4), AddressOf WndProcCheckWndActivate)
-    
     End If
 
 End Sub
@@ -47,6 +46,7 @@ Private Sub Class_Terminate()
 End Sub
 
 Friend Function FireEvent(ByVal bActivate As Boolean)
+    
     If bActivate Then
         RaiseEvent cyWndActivate
 
