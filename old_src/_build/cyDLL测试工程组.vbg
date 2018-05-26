@@ -1,0 +1,3 @@
+VBGROUP 5.0
+Project=..\src\GeneralDLL.vbp
+StartupProject=..\src\GeneralDLL_developing.vbp
