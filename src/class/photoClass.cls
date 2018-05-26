@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cyPhotoEx"
+Attribute VB_Name = "photoClass"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -368,7 +368,7 @@ End Sub
 '整理时间：2007-03-17 22:40
 '  参数：
 '  例子：
-'    Dim P As New cyPhotoEx
+'    Dim P As New photoClass
 '    P.cyChangeWallPaper "E:\My Pictures\04.07家居照片\001.jpg", LaShen
 
 '===========================================================
@@ -376,7 +376,7 @@ Sub cyChangeWallPaper(ByVal sPicFileName As String, Optional ByVal Mode As cyWal
 
     Dim sTempPath As String * 255
     Dim sTempBmp As String
-    Dim R As New cyRegEx
+    Dim R As New registClass
     
     '取得临时目录
     GetTempPath 255, sTempPath
@@ -415,7 +415,7 @@ End Sub
         'bPrintText - 是否打印人工识别字符(缺省为true)
 
 '  例子：
-'    Dim P As New cyPhotoEx
+'    Dim P As New photoClass
 '    P.cyPrintBarCode "980", 0, 60, 10, True, 9
 '===========================================================
 

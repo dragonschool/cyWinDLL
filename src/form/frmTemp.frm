@@ -46,8 +46,8 @@ Public sString  As String
 Public sType As String
 
 Private Sub Form_Load()
-    Dim Fsel As New cyFileEx
-    Dim P As New cyPhotoEx
+    Dim Fsel As New fileClass
+    Dim P As New photoClass
     
     Dim sStr As String
 

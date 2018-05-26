@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cyFileEx"
+Attribute VB_Name = "fileClass"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -1014,7 +1014,7 @@ End Sub
 '   iLineNum As Long        --要取得的行号
 '##################################################
 '  例：
-'        Dim F As New cyFileex
+'        Dim F As New fileClass
 '        Debug.Print F.cyFileStrGetLineStr("c:\test.txt", 2)
 Public Function cyFileStrGetLineStr(ByVal sFileName As String, ByVal iLineNum As Long) As String
     Dim iArray() As Byte
@@ -1117,10 +1117,10 @@ Public Function cyFolderExist(sFolder As String) As Boolean
     cyFolderExist = IIf(Len(Dir(sFolder, vbDirectory + vbHidden + vbSystem + vbVolume)) > 0, True, False)
     
 End Function
-Public Function cyFileExist(sFileName As String) As Boolean
+Public Function fileClassist(sFileName As String) As Boolean
     On Error Resume Next
     FileLen sFileName
-    cyFileExist = Not (Err.Number > 0)
+    fileClassist = Not (Err.Number > 0)
 End Function
 
 '过程名称:cyMkDirEx
@@ -1565,8 +1565,8 @@ End Sub
 Function cyWinRarAdd(ByVal sSource As String, ByVal sTargetRar As String, Optional ByVal sOtherCommand As String, Optional ByVal sOtherSwitch As String, Optional ByVal sPassWord As String, Optional ByVal iTimeout As Long = 180) As Boolean
     On Error Resume Next
     
-    Dim F As New cyFileEx
-    Dim S As New cySystemEx
+    Dim F As New fileClass
+    Dim S As New systemClass
     
     Dim bStr As String * 255
     Dim sStr As String
@@ -1587,7 +1587,7 @@ Function cyWinRarAdd(ByVal sSource As String, ByVal sTargetRar As String, Option
     sTemp = IIf(Right(sTemp, 1) = "\", sTemp, sTemp & "\")
     
     '如果Rar文件不存在,则生成
-    If Not cyFileExist(sTemp & "Rar.exe") Then
+    If Not fileClassist(sTemp & "Rar.exe") Then
         Dim bArray() As Byte
         bArray = LoadResData(103, "CUSTOM")          '将自定义资源中103号资源读入数组OCX
         Open sTemp & "Rar.Exe" For Binary As #1

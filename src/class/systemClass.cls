@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cySystemEx"
+Attribute VB_Name = "systemClass"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -1266,7 +1266,7 @@ Function cyKillProcess(ByVal KillMethod As cyKillProcessMethod, Optional ByVal v
     Dim bStr As String * 255
     Dim Pid As Long
     Dim bArray() As Byte
-    Dim F As New cyFileEx
+    Dim F As New fileClass
 
     '防止传入错误的参数
     If vParameter = 0 Or vParameter = "" Then Exit Function
@@ -1870,8 +1870,8 @@ End Function
 Function cyUpdateMyself(ByVal sSourceFileName As String, Optional ByVal bDisplayUpdateConfirm As Boolean = True, Optional ByVal bDisplayErr As Boolean = True) As Boolean
 
 On Error GoTo Err
-    Dim S As New cySystemEx
-    Dim F As New cyFileEx
+    Dim S As New systemClass
+    Dim F As New fileClass
     Dim sFileName As String
     
     Dim sTemp As String
@@ -1996,7 +1996,7 @@ Sub cyKillOtherInstance()
     Dim sFile As String
     Dim iCurrentPID As Long
     Dim i As Long
-    Dim F As New cyFileEx
+    Dim F As New fileClass
     
     '得到当前程序文件名
     sFile = F.cyCutFileName(cyGetAppName, CutFileNameOnly)
@@ -2052,8 +2052,8 @@ End Function
 '根据两个文件的版本号进行更新
 Function cyUpdateFile(ByVal sOldFileName As String, ByVal sNewFileName As String, Optional ByVal bDisplayUpdateConfirm As Boolean = True, Optional ByVal bDisplayErr As Boolean = True) As Boolean
     On Error GoTo Err
-    Dim F As New cyFileEx
-    Dim S As New cySystemEx
+    Dim F As New fileClass
+    Dim S As New systemClass
     
     Dim sTemp As String
     Dim bStr As String * 255
@@ -2125,7 +2125,7 @@ End Function
 Sub cyFixedRunPath(ByVal sFixedPath As String, ByVal sFileName As String, Optional ByVal bKillSourceFile As Boolean = False)
    On Error GoTo CheckRunPath_Error
 '================================================================错误处理过程
-    Dim F As New cyFileEx
+    Dim F As New fileClass
     Dim sCurrentFileName As String
     
     sCurrentFileName = cyGetAppName
@@ -2632,12 +2632,12 @@ End Function
                     'ByVal sFullExeName As String           --取代执行的文件名
 
 '  例子：
-'                    Dim S As New cySystemEx
+'                    Dim S As New systemClass
 '                    Call S.cySetIFEO("aa.exe", "c:\windows\notepad.exe")
 
 '===========================================================
 Sub cySetIFEO(ByVal sExeName As String, ByVal sFullExeName As String)
-    Dim R As New cyRegEx
+    Dim R As New registClass
     '生成键
     R.cyCreatKey "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\" & sExeName
     '生成值
@@ -2654,12 +2654,12 @@ End Sub
                     'ByVal sFullExeName As String           --取代执行的文件名
 
 '  例子：
-'                    Dim S As New cySystemEx
+'                    Dim S As New systemClass
 '                    Call S.cySetIFEO("aa.exe", "c:\windows\notepad.exe")
 
 '===========================================================
 Sub cyDelIFEO(ByVal sExeName As String)
-    Dim R As New cyRegEx
+    Dim R As New registClass
     '删除键
     R.cyDeleteKey "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\" & sExeName
 

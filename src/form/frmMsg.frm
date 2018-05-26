@@ -110,7 +110,7 @@ Private Declare Function PlaySound Lib "winmm.dll" Alias "PlaySoundA" (ByVal lps
 Public sMsg As String
 
 Private Sub Form_Load()
-    Dim W As New cyWndEx
+    Dim W As New formClass
     W.cyWndAction Me.hWnd, Wnd_TOPMOST, 1
     lblMsg = sMsg
     Me.Top = Screen.Height - Screen.TwipsPerPixelY * 30
@@ -126,7 +126,7 @@ On Error Resume Next
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    Dim W As New cyWndEx
+    Dim W As New formClass
     W.cyWndAction Me.hWnd, Wnd_DropToMove
 End Sub
 

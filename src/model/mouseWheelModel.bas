@@ -37,8 +37,8 @@ Public Function WndProcMouseWheel(ByVal hWnd As Long, ByVal wMsg As Long, ByVal 
     
 End Function
 
-Private Function ptrMouseWheel() As cyMouseWheelEx
-    Dim MW As cyMouseWheelEx
+Private Function ptrMouseWheel() As mouseWheelClass
+    Dim MW As mouseWheelClass
     CopyMemory MW, objMouseWheel, 4&
     Set ptrMouseWheel = MW
     CopyMemory MW, 0&, 4&

@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cyRegEx"
+Attribute VB_Name = "registClass"
 Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -485,7 +485,7 @@ End Function
 '整理日期：2004-1-16
 
 Function cyAssociate(ByVal sExeName As String, ByVal sExtention As String)
-       Dim F As New cyFileEx
+       Dim F As New fileClass
        Dim sKeyName As String '主键名称
        Dim sKeyValue As String '键值
        Dim ret& '返回值.
@@ -526,7 +526,7 @@ End Function
 ''' R.cyRegSvr "c:\as97popup.ocx", True, False
 '
 'Sub cyRegSvr(sFileName As String, bReg_UnReg As Boolean, Optional bKeepSilent As Boolean)
-'    Dim F As New cyFileEx
+'    Dim F As New fileClass
 '    Dim sSystemdir As String
 '    '取得系统目录
 '    sSystemdir = F.cyGetSpecialFolder(System)

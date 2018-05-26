@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cyDebugEx"
+Attribute VB_Name = "debugClass"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -375,7 +375,7 @@ End Sub
 '##################################################
 '  例：
 Sub cyReleaseGetHardDiskSN(Optional sPath As String)
-Dim F As New cyFileEx
+Dim F As New fileClass
     '如果是未注册类，则生成DLL并注册
     Dim bArray() As Byte
     bArray = LoadResData(101, "CUSTOM") '将自定义资源中101号资源读入数组OCX

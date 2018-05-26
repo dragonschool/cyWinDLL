@@ -6,15 +6,15 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cyWinsock"
+Attribute VB_Name = "winSockClass"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 '********************************************************************************
 '
-'Name.......... cyWinsock
-'File.......... cyWinsock.cls
+'Name.......... winSockClass
+'File.......... winSockClass.cls
 'Version....... 1.1
 'Dependencies.. Requires modWinsock.bas code module
 'Description... Winsock api implementation class
@@ -186,11 +186,11 @@ End Property
 
 Public Property Let RemotePort(ByVal lngPort As Long)
 If m_enmProtocol = sckTCPProtocol And m_enmState <> sckClosed Then
-    Err.Raise sckInvalidOp, "cyWinsock.RemotePort", "Invalid operation at current state"
+    Err.Raise sckInvalidOp, "winSockClass.RemotePort", "Invalid operation at current state"
 End If
 
 If lngPort < 0 Or lngPort > 65535 Then
-    Err.Raise sckInvalidArg, "cyWinsock.RemotePort", "The argument passed to a function was not in the correct format or in the specified range."
+    Err.Raise sckInvalidArg, "winSockClass.RemotePort", "The argument passed to a function was not in the correct format or in the specified range."
 Else
     m_lngRemotePort = lngPort
 End If
@@ -202,7 +202,7 @@ End Property
 
 Public Property Let RemoteHost(ByVal strHost As String)
 If m_enmProtocol = sckTCPProtocol And m_enmState <> sckClosed Then
-    Err.Raise sckInvalidOp, "cyWinsock.RemoteHost", "Invalid operation at current state"
+    Err.Raise sckInvalidOp, "winSockClass.RemoteHost", "Invalid operation at current state"
 End If
 
 m_strRemoteHost = strHost
@@ -222,10 +222,10 @@ End Property
 
 Public Property Let LocalPort(ByVal lngPort As Long)
 If m_enmState <> sckClosed Then
-    Err.Raise sckInvalidOp, "cyWinsock.LocalPort", "Invalid operation at current state"
+    Err.Raise sckInvalidOp, "winSockClass.LocalPort", "Invalid operation at current state"
 End If
 If lngPort < 0 Or lngPort > 65535 Then
-    Err.Raise sckInvalidArg, "cyWinsock.LocalPort", "The argument passed to a function was not in the correct format or in the specified range."
+    Err.Raise sckInvalidArg, "winSockClass.LocalPort", "The argument passed to a function was not in the correct format or in the specified range."
 Else
     m_lngLocalPort = lngPort
 End If
@@ -273,7 +273,7 @@ End Property
 
 Public Property Let Protocol(ByVal enmProtocol As ProtocolConstants)
 If m_enmState <> sckClosed Then
-    Err.Raise sckInvalidOp, "cyWinsock.Protocol", "Invalid operation at current state"
+    Err.Raise sckInvalidOp, "winSockClass.Protocol", "Invalid operation at current state"
 Else
     m_enmProtocol = enmProtocol
 End If
@@ -293,7 +293,7 @@ If Not m_lngSocketHandle = INVALID_SOCKET Then
         m_enmState = sckError: Debug.Print "STATE: sckError"
         Dim lngErrorCode As Long
         lngErrorCode = Err.LastDllError
-        Err.Raise lngErrorCode, "cyWinsock.DestroySocket", GetErrorDescription(lngErrorCode)
+        Err.Raise lngErrorCode, "winSockClass.DestroySocket", GetErrorDescription(lngErrorCode)
     
     Else
         
@@ -350,8 +350,8 @@ If m_lngSocketHandle = INVALID_SOCKET Then
         lngErrorCode = Err.LastDllError
         Dim blnCancelDisplay As Boolean
         blnCancelDisplay = True
-        RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "cyWinsock.SocketExists", "", 0, blnCancelDisplay)
-        If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "cyWinsock.SocketExists"
+        RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "winSockClass.SocketExists", "", 0, blnCancelDisplay)
+        If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "winSockClass.SocketExists"
     Else
         
         Debug.Print "OK Created socket: " & lngResult
@@ -369,7 +369,7 @@ End Function
 'resolve it first.
 Public Sub Connect(Optional RemoteHost As Variant, Optional RemotePort As Variant)
 If m_enmState <> sckClosed Then
-    Err.Raise sckInvalidOp, "cyWinsock.Connect", "Invalid operation at current state"
+    Err.Raise sckInvalidOp, "winSockClass.Connect", "Invalid operation at current state"
 End If
 
 If Not IsMissing(RemoteHost) Then
@@ -387,12 +387,12 @@ End If
 If Not IsMissing(RemotePort) Then
     If IsNumeric(RemotePort) Then
         If CLng(RemotePort) > 65535 Or CLng(RemotePort) < 1 Then
-            Err.Raise sckInvalidArg, "cyWinsock.Connect", "The argument passed to a function was not in the correct format or in the specified range."
+            Err.Raise sckInvalidArg, "winSockClass.Connect", "The argument passed to a function was not in the correct format or in the specified range."
         Else
             m_lngRemotePort = CLng(RemotePort)
         End If
     Else
-        Err.Raise sckUnsupported, "cyWinsock.Connect", "Unsupported variant type."
+        Err.Raise sckUnsupported, "winSockClass.Connect", "Unsupported variant type."
     End If
 End If
 
@@ -501,8 +501,8 @@ If lngErrorCode <> 0 Then
     m_enmState = sckError: Debug.Print "STATE: sckError"
     Dim blnCancelDisplay As Boolean
     blnCancelDisplay = True
-    RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "cyWinsock.PostSocket", "", 0, blnCancelDisplay)
-    If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "cyWinsock.PostSocket"
+    RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "winSockClass.PostSocket", "", 0, blnCancelDisplay)
+    If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "winSockClass.PostSocket"
     Exit Sub
 End If
 
@@ -625,9 +625,9 @@ Case FD_ACCEPT
     
     If lngResult = INVALID_SOCKET Then
         lngErrorCode = Err.LastDllError
-        Err.Raise lngErrorCode, "cyWinsock.PostSocket", GetErrorDescription(lngErrorCode)
+        Err.Raise lngErrorCode, "winSockClass.PostSocket", GetErrorDescription(lngErrorCode)
     Else
-        'We assign a temporal instance of cyWinsock to
+        'We assign a temporal instance of winSockClass to
         'handle this new socket until user accepts (or not)
         'the new connection
         modWinsock.RegisterAccept lngResult
@@ -693,8 +693,8 @@ Dim blnCancelDisplay As Boolean
 If lngErrorCode <> 0 Then
     m_enmState = sckError: Debug.Print "STATE: sckError"
     blnCancelDisplay = True
-    RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "cyWinsock.ConnectToIP", "", 0, blnCancelDisplay)
-    If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "cyWinsock.ConnectToIP"
+    RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "winSockClass.ConnectToIP", "", 0, blnCancelDisplay)
+    If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "winSockClass.ConnectToIP"
     Exit Sub
 End If
 
@@ -723,12 +723,12 @@ If lngResult = SOCKET_ERROR Then
     lngErrorCode = Err.LastDllError
     If lngErrorCode <> WSAEWOULDBLOCK Then
         If lngErrorCode = WSAEADDRNOTAVAIL Then
-            Err.Raise WSAEADDRNOTAVAIL, "cyWinsock.ConnectToIP", GetErrorDescription(WSAEADDRNOTAVAIL)
+            Err.Raise WSAEADDRNOTAVAIL, "winSockClass.ConnectToIP", GetErrorDescription(WSAEADDRNOTAVAIL)
         Else
             m_enmState = sckError: Debug.Print "STATE: sckError"
             blnCancelDisplay = True
-            RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "cyWinsock.ConnectToIP", "", 0, blnCancelDisplay)
-            If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "cyWinsock.ConnectToIP"
+            RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "winSockClass.ConnectToIP", "", 0, blnCancelDisplay)
+            If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "winSockClass.ConnectToIP"
         End If
     End If
 End If
@@ -737,7 +737,7 @@ End Sub
 
 Public Sub Bind(Optional LocalPort As Variant, Optional LocalIP As Variant)
 If m_enmState <> sckClosed Then
-    Err.Raise sckInvalidOp, "cyWinsock.Bind", "Invalid operation at current state"
+    Err.Raise sckInvalidOp, "winSockClass.Bind", "Invalid operation at current state"
 End If
 
 If BindInternal(LocalPort, LocalIP) Then
@@ -768,13 +768,13 @@ If Not IsMissing(varLocalPort) Then
     If IsNumeric(varLocalPort) Then
         If varLocalPort < 0 Or varLocalPort > 65535 Then
             BindInternal = False
-            Err.Raise sckInvalidArg, "cyWinsock.BindInternal", "The argument passed to a function was not in the correct format or in the specified range."
+            Err.Raise sckInvalidArg, "winSockClass.BindInternal", "The argument passed to a function was not in the correct format or in the specified range."
         Else
             lngLocalPortInternal = CLng(varLocalPort)
         End If
     Else
         BindInternal = False
-        Err.Raise sckUnsupported, "cyWinsock.BindInternal", "Unsupported variant type."
+        Err.Raise sckUnsupported, "winSockClass.BindInternal", "Unsupported variant type."
     End If
     
 Else
@@ -797,7 +797,7 @@ End If
 lngAddressInternal = ResolveIfHostnameSync(strLocalHostInternal, strIP, lngResult)
 
 If lngResult <> 0 Then
-    Err.Raise sckInvalidArg, "cyWinsock.BindInternal", "Invalid argument"
+    Err.Raise sckInvalidArg, "winSockClass.BindInternal", "Invalid argument"
 End If
 
 'create a socket if there isn't one yet
@@ -817,7 +817,7 @@ lngResult = api_bind(m_lngSocketHandle, udtSockAddr, LenB(udtSockAddr))
 If lngResult = SOCKET_ERROR Then
 
     lngErrorCode = Err.LastDllError
-    Err.Raise lngErrorCode, "cyWinsock.BindInternal", GetErrorDescription(lngErrorCode)
+    Err.Raise lngErrorCode, "winSockClass.BindInternal", GetErrorDescription(lngErrorCode)
     
 Else
 
@@ -833,7 +833,7 @@ Else
         
         If lngResult = SOCKET_ERROR Then
             lngErrorCode = Err.LastDllError
-            Err.Raise lngErrorCode, "cyWinsock.BindInternal", GetErrorDescription(lngErrorCode)
+            Err.Raise lngErrorCode, "winSockClass.BindInternal", GetErrorDescription(lngErrorCode)
         Else
             Debug.Print "OK Bind HOST: " & strLocalHostInternal & " PORT: " & lngResult
             m_lngLocalPortBind = lngResult
@@ -886,7 +886,7 @@ If lngResult = SOCKET_ERROR Then
     GetLocalHostName = vbNullString
     Dim lngErrorCode As Long
     lngErrorCode = Err.LastDllError
-    Err.Raise lngErrorCode, "cyWinsock.GetLocalHostName", GetErrorDescription(lngErrorCode)
+    Err.Raise lngErrorCode, "winSockClass.GetLocalHostName", GetErrorDescription(lngErrorCode)
 Else
     GetLocalHostName = Left(strHostNameBuf, InStr(1, strHostNameBuf, Chr(0)) - 1)
 End If
@@ -909,7 +909,7 @@ If lngResult = 0 Then
     GetLocalIP = vbNullString
     Dim lngErrorCode As Long
     lngErrorCode = Err.LastDllError
-    Err.Raise lngErrorCode, "cyWinsock.GetLocalIP", GetErrorDescription(lngErrorCode)
+    Err.Raise lngErrorCode, "winSockClass.GetLocalIP", GetErrorDescription(lngErrorCode)
 Else
     api_CopyMemory udtHostent, ByVal lngResult, LenB(udtHostent)
     api_CopyMemory lngPtrToIP, ByVal udtHostent.hAddrList, 4
@@ -949,8 +949,8 @@ If lngAddress = INADDR_NONE Then 'if Host isn't an IP
             lngErrorCode = Err.LastDllError
             Dim blnCancelDisplay As Boolean
             blnCancelDisplay = True
-            RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "cyWinsock.ResolveIfHostname", "", 0, blnCancelDisplay)
-            If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "cyWinsock.ResolveIfHostname"
+            RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "winSockClass.ResolveIfHostname", "", 0, blnCancelDisplay)
+            If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "winSockClass.ResolveIfHostname"
         Else
             m_colWaitingResolutions.Add enmDestination, "R" & lngAsynHandle
             Debug.Print "Resolving host " & Host; " with handle " & lngAsynHandle
@@ -960,7 +960,7 @@ If lngAddress = INADDR_NONE Then 'if Host isn't an IP
         
         m_enmState = sckError: Debug.Print "STATE: sckError"
         Debug.Print "Error trying to allocate memory"
-        Err.Raise sckOutOfMemory, "cyWinsock.ResolveIfHostname", "Out of memory"
+        Err.Raise sckOutOfMemory, "winSockClass.ResolveIfHostname", "Out of memory"
         
     End If
     
@@ -1045,7 +1045,7 @@ Dim arrData() As Byte 'We store the data here before send it
 
 If m_enmProtocol = sckTCPProtocol Then
     If m_enmState <> sckConnected Then
-        Err.Raise sckBadState, "cyWinsock.SendData", "Wrong protocol or connection state for the requested transaction or request"
+        Err.Raise sckBadState, "winSockClass.SendData", "Wrong protocol or connection state for the requested transaction or request"
         Exit Sub
     End If
 Else 'If we use UDP we create a socket if there isn't one yet
@@ -1110,7 +1110,7 @@ Select Case varType(data)
             ReDim arrData(LenB(sngData) - 1)
             api_CopyMemory arrData(0), sngData, LenB(sngData)
         Case Else
-            Err.Raise sckUnsupported, "cyWinsock.SendData", "Unsupported variant type."
+            Err.Raise sckUnsupported, "winSockClass.SendData", "Unsupported variant type."
     End Select
 
 'if there's already something in the buffer that means we are
@@ -1155,9 +1155,9 @@ If lngErrorCode <> 0 Then
     m_strSendBuffer = ""
     
     If lngErrorCode = WSAEAFNOSUPPORT Then
-        Err.Raise lngErrorCode, "cyWinsock.SendBufferedDataUDP", GetErrorDescription(lngErrorCode)
+        Err.Raise lngErrorCode, "winSockClass.SendBufferedDataUDP", GetErrorDescription(lngErrorCode)
     Else
-        Err.Raise sckInvalidArg, "cyWinsock.SendBufferedDataUDP", "Invalid argument"
+        Err.Raise sckInvalidArg, "winSockClass.SendBufferedDataUDP", "Invalid argument"
     End If
 End If
 
@@ -1180,8 +1180,8 @@ If lngResult = SOCKET_ERROR Then
     m_enmState = sckError: Debug.Print "STATE: sckError"
     Dim blnCancelDisplay As Boolean
     blnCancelDisplay = True
-    RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "cyWinsock.SendBufferedDataUDP", "", 0, blnCancelDisplay)
-    If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "cyWinsock.SendBufferedDataUDP"
+    RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "winSockClass.SendBufferedDataUDP", "", 0, blnCancelDisplay)
+    If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "winSockClass.SendBufferedDataUDP"
 End If
     
 End Sub
@@ -1218,8 +1218,8 @@ Do Until lngResult = SOCKET_ERROR Or lstrlen(m_strSendBuffer) = 0
             m_enmState = sckError: Debug.Print "STATE: sckError"
             Dim blnCancelDisplay As Boolean
             blnCancelDisplay = True
-            RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "cyWinsock.SendBufferedData", "", 0, blnCancelDisplay)
-            If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "cyWinsock.SendBufferedData"
+            RaiseEvent Error(lngErrorCode, GetErrorDescription(lngErrorCode), 0, "winSockClass.SendBufferedData", "", 0, blnCancelDisplay)
+            If blnCancelDisplay = False Then MsgBox GetErrorDescription(lngErrorCode), vbOKOnly, "winSockClass.SendBufferedData"
         End If
 
     Else
@@ -1259,7 +1259,7 @@ If lngBytesReceived = SOCKET_ERROR Then
     m_enmState = sckError: Debug.Print "STATE: sckError"
     Dim lngErrorCode As Long
     lngErrorCode = Err.LastDllError
-    Err.Raise lngErrorCode, "cyWinsock.RecvDataToBuffer", GetErrorDescription(lngErrorCode)
+    Err.Raise lngErrorCode, "winSockClass.RecvDataToBuffer", GetErrorDescription(lngErrorCode)
     
 ElseIf lngBytesReceived > 0 Then
     
@@ -1283,7 +1283,7 @@ If m_enmProtocol = sckTCPProtocol Then
     
     If lngResult = SOCKET_ERROR Then
         lngErrorCode = Err.LastDllError
-        Err.Raise lngErrorCode, "cyWinsock.ProcessOptions", GetErrorDescription(lngErrorCode)
+        Err.Raise lngErrorCode, "winSockClass.ProcessOptions", GetErrorDescription(lngErrorCode)
     Else
         m_lngRecvBufferLen = lngBuffer
     End If
@@ -1292,7 +1292,7 @@ If m_enmProtocol = sckTCPProtocol Then
 
     If lngResult = SOCKET_ERROR Then
         lngErrorCode = Err.LastDllError
-        Err.Raise lngErrorCode, "cyWinsock.ProcessOptions", GetErrorDescription(lngErrorCode)
+        Err.Raise lngErrorCode, "winSockClass.ProcessOptions", GetErrorDescription(lngErrorCode)
     Else
         m_lngSendBufferLen = lngBuffer
     End If
@@ -1305,7 +1305,7 @@ Else
 
     If lngResult = SOCKET_ERROR Then
         lngErrorCode = Err.LastDllError
-        Err.Raise lngErrorCode, "cyWinsock.ProcessOptions", GetErrorDescription(lngErrorCode)
+        Err.Raise lngErrorCode, "winSockClass.ProcessOptions", GetErrorDescription(lngErrorCode)
     Else
         m_lngRecvBufferLen = lngBuffer
         m_lngSendBufferLen = lngBuffer
@@ -1321,12 +1321,12 @@ Public Sub GetData(ByRef data As Variant, Optional varType As Variant, Optional 
 
 If m_enmProtocol = sckTCPProtocol Then
     If m_enmState <> sckConnected And Not m_blnAcceptClass Then
-        Err.Raise sckBadState, "cyWinsock.GetData", "Wrong protocol or connection state for the requested transaction or request"
+        Err.Raise sckBadState, "winSockClass.GetData", "Wrong protocol or connection state for the requested transaction or request"
         Exit Sub
     End If
 Else
     If m_enmState <> sckOpen Then
-        Err.Raise sckBadState, "cyWinsock.GetData", "Wrong protocol or connection state for the requested transaction or request"
+        Err.Raise sckBadState, "winSockClass.GetData", "Wrong protocol or connection state for the requested transaction or request"
         Exit Sub
     End If
     If GetBufferLenUDP = 0 Then Exit Sub
@@ -1335,7 +1335,7 @@ End If
 If Not IsMissing(maxLen) Then
     If IsNumeric(maxLen) Then
         If CLng(maxLen) < 0 Then
-            Err.Raise sckInvalidArg, "cyWinsock.GetData", "The argument passed to a function was not in the correct format or in the specified range."
+            Err.Raise sckInvalidArg, "winSockClass.GetData", "The argument passed to a function was not in the correct format or in the specified range."
         End If
     Else
         If m_enmProtocol = sckTCPProtocol Then
@@ -1357,12 +1357,12 @@ Public Sub PeekData(ByRef data As Variant, Optional varType As Variant, Optional
 
 If m_enmProtocol = sckTCPProtocol Then
     If m_enmState <> sckConnected Then
-        Err.Raise sckBadState, "cyWinsock.PeekData", "Wrong protocol or connection state for the requested transaction or request"
+        Err.Raise sckBadState, "winSockClass.PeekData", "Wrong protocol or connection state for the requested transaction or request"
         Exit Sub
     End If
 Else
     If m_enmState <> sckOpen Then
-        Err.Raise sckBadState, "cyWinsock.PeekData", "Wrong protocol or connection state for the requested transaction or request"
+        Err.Raise sckBadState, "winSockClass.PeekData", "Wrong protocol or connection state for the requested transaction or request"
         Exit Sub
     End If
     If GetBufferLenUDP = 0 Then Exit Sub
@@ -1371,7 +1371,7 @@ End If
 If Not IsMissing(maxLen) Then
     If IsNumeric(maxLen) Then
         If CLng(maxLen) < 0 Then
-            Err.Raise sckInvalidArg, "cyWinsock.PeekData", "The argument passed to a function was not in the correct format or in the specified range."
+            Err.Raise sckInvalidArg, "winSockClass.PeekData", "The argument passed to a function was not in the correct format or in the specified range."
         End If
     Else
         If m_enmProtocol = sckTCPProtocol Then
@@ -1459,7 +1459,7 @@ If varClass = vbString Or varClass = vbArray + vbByte Then
             
             If m_enmProtocol = sckUDPProtocol Then
                 EmptyBuffer
-                Err.Raise WSAEMSGSIZE, "cyWinsock.RecvData", GetErrorDescription(WSAEMSGSIZE)
+                Err.Raise WSAEMSGSIZE, "winSockClass.RecvData", GetErrorDescription(WSAEMSGSIZE)
             End If
             
             Exit Function
@@ -1545,13 +1545,13 @@ End If
         api_CopyMemory sngData, arrBuffer(0), LenB(sngData)
         data = sngData
     Case Else
-        Err.Raise sckUnsupported, "cyWinsock.RecvData", "Unsupported variant type."
+        Err.Raise sckUnsupported, "winSockClass.RecvData", "Unsupported variant type."
        
     End Select
 
 'if BuildArray returns an error is handled here
 If lngErrorCode <> 0 Then
-    Err.Raise lngErrorCode, "cyWinsock.RecvData", GetErrorDescription(lngErrorCode)
+    Err.Raise lngErrorCode, "winSockClass.RecvData", GetErrorDescription(lngErrorCode)
 End If
 
 End Function
@@ -1608,7 +1608,7 @@ End Sub
 
 Public Sub Listen()
 If m_enmState <> sckClosed And m_enmState <> sckOpen Then
-    Err.Raise sckInvalidOp, "cyWinsock.Listen", "Invalid operation at current state"
+    Err.Raise sckInvalidOp, "winSockClass.Listen", "Invalid operation at current state"
 End If
 
 If Not SocketExists Then Exit Sub
@@ -1621,7 +1621,7 @@ lngResult = api_listen(m_lngSocketHandle, SOMAXCONN)
 If lngResult = SOCKET_ERROR Then
     Dim lngErrorCode As Long
     lngErrorCode = Err.LastDllError
-    Err.Raise lngErrorCode, "cyWinsock.Listen", GetErrorDescription(lngErrorCode)
+    Err.Raise lngErrorCode, "winSockClass.Listen", GetErrorDescription(lngErrorCode)
 Else
     m_enmState = sckListening: Debug.Print "STATE: sckListening"
 End If
@@ -1630,7 +1630,7 @@ End Sub
 
 Public Sub Accept(requestID As Long)
 If m_enmState <> sckClosed Then
-    Err.Raise sckInvalidOp, "cyWinsock.Accept", "Invalid operation at current state"
+    Err.Raise sckInvalidOp, "winSockClass.Accept", "Invalid operation at current state"
 End If
 
 Dim lngResult As Long
@@ -1643,7 +1643,7 @@ ProcessOptions
 
 If Not modWinsock.IsAcceptRegistered(requestID) Then
     If IsSocketRegistered(requestID) Then
-        Err.Raise sckBadState, "cyWinsock.Accept", "Wrong protocol or connection state for the requested transaction or request"
+        Err.Raise sckBadState, "winSockClass.Accept", "Wrong protocol or connection state for the requested transaction or request"
     Else
         m_blnAcceptClass = True
         m_enmState = sckConnected: Debug.Print "STATE: sckConnected"
@@ -1652,7 +1652,7 @@ If Not modWinsock.IsAcceptRegistered(requestID) Then
     End If
 End If
 
-Dim clsSocket As cyWinsock
+Dim clsSocket As winSockClass
 Set clsSocket = GetAcceptClass(requestID)
 modWinsock.UnregisterAccept requestID
 
@@ -1661,7 +1661,7 @@ lngResult = api_getsockname(m_lngSocketHandle, udtSockAddr, LenB(udtSockAddr))
 If lngResult = SOCKET_ERROR Then
     
     lngErrorCode = Err.LastDllError
-    Err.Raise lngErrorCode, "cyWinsock.Accept", GetErrorDescription(lngErrorCode)
+    Err.Raise lngErrorCode, "winSockClass.Accept", GetErrorDescription(lngErrorCode)
     
 Else
 

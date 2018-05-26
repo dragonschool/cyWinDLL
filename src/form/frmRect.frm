@@ -84,32 +84,32 @@ Private Declare Function CombineRgn Lib "gdi32" (ByVal hDestRgn As Long, ByVal h
 Private Declare Function SetWindowRgn Lib "user32" (ByVal hWnd As Long, ByVal hRgn As Long, ByVal bRedraw As Long) As Long
 Private Declare Function ReleaseCapture Lib "user32" () As Long
 Private Declare Function PostMessage Lib "user32" Alias "PostMessageA" (ByVal hWnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
-Dim WithEvents Tray As cyTrayEx
+Dim WithEvents Tray As trayClass
 Attribute Tray.VB_VarHelpID = -1
-Dim WithEvents HotKey As cyHotKeyEx
+Dim WithEvents HotKey As hotKeyClass
 Attribute HotKey.VB_VarHelpID = -1
 
 Dim iClick As Long
 Dim m_sPath As String
-Dim WithEvents P As cyPhotoEx
+Dim WithEvents P As photoClass
 Attribute P.VB_VarHelpID = -1
 
 Public bShowTray As Boolean
 
 Private Sub Form_Load()
            
-    Set P = New cyPhotoEx
-    Dim F As New cyFileEx
+    Set P = New photoClass
+    Dim F As New fileClass
     m_sPath = F.cyGetSpecialFolder(DeskTop)
     
-    Set HotKey = New cyHotKeyEx
+    Set HotKey = New hotKeyClass
     HotKey.cySetHotKeyEx 100001, Me.hWnd, , True, , vbKeyF8
     HotKey.cySetHotKeyEx 100002, Me.hWnd, , True, , vbKeyF9
     HotKey.cySetHotKeyEx 100003, Me.hWnd, , True, , vbKeyF10
     HotKey.cySetHotKeyEx 100004, Me.hWnd, , True, , vbKeyF11
     
     If bShowTray = True Then
-        Set Tray = New cyTrayEx
+        Set Tray = New trayClass
         Tray.SetTray Me.hWnd, Me.Icon.Handle, "ScreenCapture", "Shift+F8·¶Î§½ØÍ¼" & vbTab & "Shift+F9È«ÆÁ½ØÍ¼" & vbCrLf & "Shift+F10´æµ½×ÀÃæ" & vbTab & "Shift+F11±£´æ¼ôÌù°å", 1, 10
         
     End If
@@ -227,7 +227,7 @@ Select Case IDHotKey
     
     Case 100004
         Dim sFileName As String
-        Dim F As New cyFileEx
+        Dim F As New fileClass
         sFileName = F.cyDialogSave(Me.hWnd, "±£´æ", "*.Bmp|*.Bmp|*.Jpg|*.jpg")
         If sFileName = "" Then Exit Sub
         If UCase(Right(sFileName, 3)) = "BMP" Then

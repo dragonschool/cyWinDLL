@@ -85,17 +85,17 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim WithEvents cyWinsock As cyWinsock
-Attribute cyWinsock.VB_VarHelpID = -1
+Dim WithEvents winSockClass As winSockClass
+Attribute winSockClass.VB_VarHelpID = -1
 
 Private Sub Form_Load()
 
-Dim fileClass As New cyFileEx
+Dim fileClass As New fileClass
 fileClass.cyXCOPY "E:\old file", "c:\a"
 
 
 
-Dim dBug As New cyDebugEx
+Dim dBug As New debugClass
 'dBug.cyShowHwnd
 
 End Sub

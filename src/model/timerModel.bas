@@ -36,7 +36,7 @@ Private Declare Function KillTimer Lib "user32" (ByVal hWnd As Long, ByVal nEven
 Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (pDst As Any, pSrc As Any, ByVal ByteLen As Long)
 
 '添加一个Timer
-Public Sub AddTimer(ByRef Timer As cyTimers, ByVal iInterval As Long, ByVal bRunOnce As Boolean)
+Public Sub AddTimer(ByRef Timer As timerClass, ByVal iInterval As Long, ByVal bRunOnce As Boolean)
     '如果集合未实例化则先实例化
     If m_TimerColection Is Nothing Then
         Set m_TimerColection = New Collection
@@ -48,7 +48,7 @@ Public Sub AddTimer(ByRef Timer As cyTimers, ByVal iInterval As Long, ByVal bRun
 End Sub
 
 '删除一个Timer
-Public Sub RemoveTimer(ByRef Timer As cyTimers)
+Public Sub RemoveTimer(ByRef Timer As timerClass)
 On Error GoTo ErrHandler
 
     m_TimerColection.Remove Timer.ID & ""
@@ -67,7 +67,7 @@ End Sub
 Public Sub TimerProc(ByVal hWnd As Long, ByVal uMsg As Long, ByVal EventID As Long, ByVal SysTime As Long)
 
 Dim lPointer As Long
-Dim objTimer As cyTimers
+Dim objTimer As timerClass
 
 On Error GoTo ErrHandler
 

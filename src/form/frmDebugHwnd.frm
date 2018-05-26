@@ -318,11 +318,11 @@ Private Declare Function GetWindowDC Lib "user32" (ByVal hWnd As Long) As Long
 Dim iScaleX As Integer
 Dim iscaleY As Integer
 
-Dim WithEvents HotKey As cyHotKeyEx
+Dim WithEvents HotKey As hotKeyClass
 Attribute HotKey.VB_VarHelpID = -1
-Dim WithEvents tmrMouseMove As cyTimers
+Dim WithEvents tmrMouseMove As timerClass
 Attribute tmrMouseMove.VB_VarHelpID = -1
-Dim WithEvents tmrCheckWndActive As cyTimers    '每秒钟检测窗口是否活跃，如果不活跃则暂停时钟
+Dim WithEvents tmrCheckWndActive As timerClass    '每秒钟检测窗口是否活跃，如果不活跃则暂停时钟
 Attribute tmrCheckWndActive.VB_VarHelpID = -1
 
 '放大显示
@@ -332,7 +332,7 @@ End Sub
 Private Sub cmd_Click(Index As Integer)
     If Index = 0 Then
     '打开文件所在的路径
-        Dim F As New cyFileEx
+        Dim F As New fileClass
         F.cyOpenFolder F.cyCutFileName(txtFullPath, CutPath), True
         Set F = Nothing
         
@@ -342,7 +342,7 @@ End Sub
 
 '锁定键盘
 Private Sub cmdLock_Click()
-    Dim W As New cyWndEx
+    Dim W As New formClass
     
     If cmdLock.Caption = "&L锁定" Then
     '如果当前是非锁定状态则设置为锁定状态
@@ -363,14 +363,14 @@ On Error Resume Next
     '如果当前是锁定状态则设置为非锁定状态
         cmdLock.Caption = "&L锁定"
         
-        Set tmrMouseMove = New cyTimers
+        Set tmrMouseMove = New timerClass
         '鼠标时钟
-        tmrMouseMove.cyTimerStart 0.1
+        tmrMouseMove.timerClasstart 0.1
         '设置快捷键
-        Set HotKey = New cyHotKeyEx
+        Set HotKey = New hotKeyClass
         HotKey.cySetHotKeyEx 100009, Me.hWnd, , , True, vbKeyL
         '设置位置检查时钟
-        Set tmrCheckWndActive = New cyTimers
+        Set tmrCheckWndActive = New timerClass
         tmrCheckWndActive.cySecondClock
         
         W.cyWndAction lblCurrentHwnd(0), Wnd_ShowFrame, 0
@@ -381,17 +381,17 @@ End Sub
 
 Private Sub Form_Load()
 
-Dim W As New cyWndEx
+Dim W As New formClass
 
 '打开时钟
-Set tmrMouseMove = New cyTimers
-tmrMouseMove.cyTimerStart 0.1
+Set tmrMouseMove = New timerClass
+tmrMouseMove.timerClasstart 0.1
  
-Set tmrCheckWndActive = New cyTimers
+Set tmrCheckWndActive = New timerClass
 tmrCheckWndActive.cySecondClock
 
 '设置快捷键
-Set HotKey = New cyHotKeyEx
+Set HotKey = New hotKeyClass
 HotKey.cySetHotKeyEx 100009, Me.hWnd, , , True, vbKeyL
 
 Me.Top = 0
@@ -413,13 +413,13 @@ End Sub
 Private Sub Form_Resize()
 'On Error GoTo Err
 '    If Me.WindowState = 1 Then
-''        tmrMouseMove.cyTimerStop
+''        tmrMouseMove.timerClasstop
 ''        Set HotKey = Nothing
 '        cmdLock.Caption = "&L锁定"
 '        cmdLock_Click
 '    ElseIf Me.WindowState = 0 Then
 ''        '鼠标时钟
-''        tmrMouseMove.cyTimerStart 0.1
+''        tmrMouseMove.timerClasstart 0.1
 ''        '设置快捷键
 ''        HotKey.cySetHotKeyEx 100009, Me.hWnd, , , True, vbKeyL
 '        cmdLock.Caption = "&L解锁"
@@ -512,8 +512,8 @@ Private Sub tmrCheckWndActive_TimerEvent()
 End Sub
 
 Private Sub tmrMouseMove_TimerEvent()
-    Dim S As New cySystemEx
-    Dim W As New cyWndEx
+    Dim S As New systemClass
+    Dim W As New formClass
 
 '实时取得鼠标的光标位置
     Dim X As Long

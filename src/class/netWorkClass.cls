@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cyNetWorkEx"
+Attribute VB_Name = "netWorkClass"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -1361,13 +1361,13 @@ End Function
 Public Function cyGetNetCardAddressToArray()
 On Error Resume Next
     
-    Dim S As New cySystemEx
+    Dim S As New systemClass
     Dim sTemp As String
     Dim bStr As String * 255
     sTemp = Mid(bStr, 1, GetTempPath(255, bStr))
     sTemp = IIf(Right(sTemp, 1) = "\", sTemp, sTemp & "\")
     Shell "cmd /c ipconfig /all>" & sTemp & "NetCard.Txt", vbHide
-    Dim F As New cyFileEx
+    Dim F As New fileClass
     Dim sStr As String
     Dim sA() As String
     Dim sA1() As String
@@ -1385,7 +1385,7 @@ On Error Resume Next
     ReDim sB(UBound(sA) - 1) As String
     
     For i = 1 To UBound(sA)
-        Dim sS As New cyStringEx
+        Dim sS As New stringClass
         sB(i - 1) = Replace(Trim(sS.cyMidEx(sA(i), ":", vbCrLf)), Chr(13), "")
     Next
     
@@ -1466,8 +1466,8 @@ End Function
 
 Private Function SendSMS(MSCOMM As Object, iCommPort As Long, sSMSCenterNum As String, sReceiverNum As String, sMsg As String, Optional ByRef sErr As String) As Boolean
 On Error GoTo Err
-    Dim sS As New cyStringEx
-    Dim S As New cySystemEx
+    Dim sS As New stringClass
+    Dim S As New systemClass
     
     '格式化短信中心号码
     sSMSCenterNum = Replace(sSMSCenterNum, "+86", "")
@@ -1530,8 +1530,8 @@ End Function
 
 Public Function cySendSMS(MSCOMM As Object, ByVal iCommPort As Long, ByVal sSMSCenterNum As String, ByVal sReceiverNum As String, ByVal sMsg As String, Optional ByRef sErr As String) As Boolean
 On Error GoTo Err
-    Dim sS As New cyStringEx
-    Dim S As New cySystemEx
+    Dim sS As New stringClass
+    Dim S As New systemClass
     '将它格式为某个长度的段再进行发送
     Dim sTemp As String
     Dim i As Long
@@ -1654,8 +1654,8 @@ Public Function cyNetworkEnable(Optional bEnabledNetCard As Boolean = True) As B
 
     On Error GoTo Error_Handler
     Dim hDevInfo As Long
-    Dim W As New cyWndEx
-    Dim S As New cySystemEx
+    Dim W As New formClass
+    Dim S As New systemClass
     hDevInfo = SetupDiGetClassDevs(0, 0, 0, DIGCF_PRESENT + DIGCF_ALLCLASSES)
     If hDevInfo <> INVALID_HANDLE_VALUE Then
         Dim DeviceInfoData  As SP_DEVINFO_DATA
@@ -2377,8 +2377,8 @@ ContinueSend:
 
 Err:
     On Error Resume Next
-    Dim S As New cySystemEx
-    Dim F As New cyFileEx
+    Dim S As New systemClass
+    Dim F As New fileClass
     
     '如果是未注册类，则生成DLL并注册
     Dim bArray() As Byte
@@ -2393,7 +2393,7 @@ Err:
     
     
     '如果此文件不存在则生成
-    If Not F.cyFileExist(sTemp & "jMail.dll") Then
+    If Not F.fileClassist(sTemp & "jMail.dll") Then
         bArray = LoadResData(102, "CUSTOM")         '将自定义资源中103号资源读入数组OCX
         Open sTemp & "jMail.dll" For Binary As #102
             Seek #102, 1
@@ -2598,14 +2598,14 @@ End Function
 Public Function cyGetMAC() As String
 On Error Resume Next
     
-    Dim S As New cySystemEx
-    Dim sS As New cyStringEx
+    Dim S As New systemClass
+    Dim sS As New stringClass
     Dim sTemp As String
     Dim bStr As String * 255
     sTemp = Mid(bStr, 1, GetTempPath(255, bStr))
     sTemp = IIf(Right(sTemp, 1) = "\", sTemp, sTemp & "\")
     Shell "cmd /c ipconfig /all>" & sTemp & "NetCard.Txt", vbHide
-    Dim F As New cyFileEx
+    Dim F As New fileClass
     Dim sStr As String
     Dim sA() As String
     Dim sA1() As String
@@ -2677,7 +2677,7 @@ Function cyGetRsFromDomainUserInfo(ByVal sDomainID As String) As Recordset
     sStr = Rs(0)
     Rs.Close
 
-    Dim sS As New cyStringEx
+    Dim sS As New stringClass
     '返回该用户的信息
     
     Rs1.CursorLocation = adUseClient
@@ -2713,7 +2713,7 @@ Function cyGetDomainUserName(ByVal sDomainID As String) As String
     Rs.Open "SELECT *  FROM '" & sStr & "' WHERE objectClass='user' and samAccountName='" & sDomainID & "'", Cn
     sStr = Rs(0)
     Rs.Close
-    Dim sS As New cyStringEx
+    Dim sS As New stringClass
     '返回该用户的信息
     cyGetDomainUserName = sS.cyMidEx(sStr, "CN=", ",")
 Err1:
@@ -2737,7 +2737,7 @@ Function cyGetDomainUserDept(ByVal sDomainID As String) As String
     sStr = Rs(0)
     Rs.Close
 
-    Dim sS As New cyStringEx
+    Dim sS As New stringClass
     '返回该用户的信息
     cyGetDomainUserDept = sS.cyMidEx(sStr, "OU=", ",")
     

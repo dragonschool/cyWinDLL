@@ -50,8 +50,8 @@ WndProcSubClassAllMsg = CallWindowProc(preSubClassProc, hWnd, uMsg, wParam, lPar
     
 End Function
 
-Private Function ptrSubClass() As cySubClassEx
-    Dim SC As cySubClassEx
+Private Function ptrSubClass() As subClassClass
+    Dim SC As subClassClass
     CopyMemory SC, objSubClass, 4&
     Set ptrSubClass = SC
     CopyMemory SC, 0&, 4&

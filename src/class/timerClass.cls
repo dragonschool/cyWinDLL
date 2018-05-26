@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cyTimers"
+Attribute VB_Name = "timerClass"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -44,70 +44,70 @@ Friend Property Get ID() As Long
 End Property
 
 Private Sub Class_Terminate()
-    cyTimerStop
+    timerClasstop
 End Sub
 
 '激活事件
 Friend Sub RaiseTimerEvent(ByVal bRunOnce As Boolean)
     If bRunOnce Then
         '只要求运行一次，
-        cyTimerStop
+        timerClasstop
     End If
     
     RaiseEvent TimerEvent
 End Sub
 
-'函数名称:cyTimerSetAlert
+'函数名称:timerClassetAlert
 '作用：设置闹钟
 '===========================================================
 '整理时间：2006-9-18 22:55
 '  参数：
 '===========================================================
-Public Sub cyTimerSetAlert(ByVal AlertDateTime As Date)
-    cyTimerStart DateDiff("s", Now, AlertDateTime), True
+Public Sub timerClassetAlert(ByVal AlertDateTime As Date)
+    timerClasstart DateDiff("s", Now, AlertDateTime), True
     
 End Sub
 
-'函数名称:cyTimerStart
+'函数名称:timerClasstart
 '作用：开始定时器
 '===========================================================
 '整理时间：2006-9-18 22:55
 '  参数：
 '===========================================================
-Public Sub cyTimerStart(ByVal sinSecond As Single, Optional ByVal bRunOnce As Boolean = False)
+Public Sub timerClasstart(ByVal sinSecond As Single, Optional ByVal bRunOnce As Boolean = False)
         AddTimer Me, sinSecond * (10 ^ 3), bRunOnce
 
 End Sub
 
-'函数名称:cyTimerStop
+'函数名称:timerClasstop
 '作用：停止定时器
 '===========================================================
 '整理时间：2006-9-18 22:55
 '  参数：
 '===========================================================
-Public Sub cyTimerStop()
+Public Sub timerClasstop()
     If m_TimerID > 0 Then
         RemoveTimer Me
     End If
 End Sub
 
 Public Sub cyDayClock(Optional ByVal bRunOnce As Boolean)
-    cyTimerStart 60 ^ 2 * 24, bRunOnce
+    timerClasstart 60 ^ 2 * 24, bRunOnce
 
 End Sub
 
 Public Sub cyHourClock(Optional ByVal bRunOnce As Boolean)
-    cyTimerStart 3600, bRunOnce
+    timerClasstart 3600, bRunOnce
 
 End Sub
 
 Public Sub cyMinuteClock(Optional ByVal bRunOnce As Boolean)
-    cyTimerStart 60, bRunOnce
+    timerClasstart 60, bRunOnce
 
 End Sub
 
 Public Sub cySecondClock(Optional ByVal bRunOnce As Boolean)
-    cyTimerStart 1, bRunOnce
+    timerClasstart 1, bRunOnce
 
 End Sub
 

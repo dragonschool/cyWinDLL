@@ -1356,9 +1356,9 @@ Public Function GET_Y_LPARAM(lParam As Long) As Long
     GET_Y_LPARAM = HIWORD(lParam)
 End Function
 
-Private Function GetEventObject(hWndContainer As Long) As cyDragControl
+Private Function GetEventObject(hWndContainer As Long) As dragControlClass
     
-    Dim ObjTemp As cyDragControl
+    Dim ObjTemp As dragControlClass
     CopyMemory ObjTemp, objDragControl, 4
     
     Set GetEventObject = ObjTemp

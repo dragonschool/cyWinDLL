@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cyWndEx"
+Attribute VB_Name = "formClass"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -513,9 +513,9 @@ Public Function cyRunningBar(Optional Action As cyRunningBar, Optional varParama
         
             On Error Resume Next
             
-            Dim F As New cyFileEx
+            Dim F As New fileClass
             '如果不存在则释放文件
-            If Not F.cyFileExist(sTemp & "RunningBar.Bin") Then
+            If Not F.fileClassist(sTemp & "RunningBar.Bin") Then
             
                 '获放该主文件为临时文件
                 Dim bArray() As Byte
@@ -1876,7 +1876,7 @@ End Function
 
 '获得弹出窗口的句柄
 Private Function cyGetPopupHwnd(ByVal sMainCaption As String, ByVal sPopupCaption As String, ByVal FunKey As KeyCodeConstants, ByVal Key1 As KeyCodeConstants, Optional ByVal Key2 As KeyCodeConstants) As Long
-    Dim S As New cySystemEx
+    Dim S As New systemClass
     Dim i As Long
 
     '检查句柄是否存在
@@ -2016,7 +2016,7 @@ Function cyGetHwndFromPopupWnd(ByVal sMainCaption As String, ByVal sMainClass As
     '激活窗口
     cyWndAction iHwnd, Wnd_SetActive
     
-    Dim S As New cySystemEx
+    Dim S As New systemClass
     If Key2 = 0 Then '只使用了两个快捷键
         S.cyKeyBoardAction , FunKey, Key1
         
@@ -2165,7 +2165,7 @@ End Sub
 '===========================================================
 '整理时间：2007-08-23 12:45
 '  参数：
-'     Dim W As New cyWndEx
+'     Dim W As New formClass
 '     W.cySetListviewWidths lv, "234;234;234;234", "1000;2000;1320;2343"
 
 '===========================================================
@@ -2173,7 +2173,7 @@ Sub cySetListviewWidths(ByVal lvListview As Object, ByVal sCaptionList As String
 
     Dim i As Long
     Dim j As Long
-    Dim W As New cyWndEx
+    Dim W As New formClass
     Dim sA() As String
     Dim sB() As String
     
@@ -2218,7 +2218,7 @@ End Sub
 '===========================================================
 '整理时间：2007-11-03 06:39
 '  参数：
-'     Dim W As New cyWndEx
+'     Dim W As New formClass
 '     Debug.print W.cyGetHwndFromPID (2524)
 
 '===========================================================

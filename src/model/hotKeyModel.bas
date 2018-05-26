@@ -11,9 +11,9 @@ Private Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcA" (By
 Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (lpDest As Any, lpSource As Any, ByVal cBytes As Long)
 
 '处理热键指针问题
-Private Function ptrHotKey() As cyHotKeyEx
+Private Function ptrHotKey() As hotKeyClass
     
-    Dim HK As cyHotKeyEx
+    Dim HK As hotKeyClass
     CopyMemory HK, objHotKey, 4&
     Set ptrHotKey = HK
     CopyMemory HK, 0&, 4&

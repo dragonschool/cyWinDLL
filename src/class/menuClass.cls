@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cyMenu"
+Attribute VB_Name = "menuClass"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -21,11 +21,11 @@ Attribute VB_Exposed = True
 
 Option Explicit
 
-Public Event cyMenuShow()
+Public Event menuClassShow()
 
-Public Event cyMenuHide()
+Public Event menuClassHide()
 
-Public Event cyMenuClick(ByVal iMenuKeyID As Long, ByVal sMenuCaption As String)
+Public Event menuClassClick(ByVal iMenuKeyID As Long, ByVal sMenuCaption As String)
 
 Private Declare Function SetForegroundWindow Lib "user32" (ByVal hWnd As Long) As Long
 Private Declare Function TrackPopupMenu Lib "user32" (ByVal hMenu As Long, ByVal wFlags As Long, ByVal X As Long, ByVal Y As Long, ByVal nReserved As Long, ByVal hWnd As Long, lprc As Any) As Long
@@ -586,18 +586,18 @@ Public Sub SetPopupMenu(ByVal hMenuOwner As Long)
     preMenuWndProc = SetWindowLong(hWnd, GWL_WNDPROC, AddressOf MenuWndProc)
     hMenu = CreatePopupMenu()
 '    Me.Style = STYLE_WINDOWS
-    RaiseEvent cyMenuShow
+    RaiseEvent menuClassShow
 
 
 End Sub
 
 Friend Function FireEvent(ByVal iMenuKeyID As Long, ByVal sMenuCaption As String)
-    RaiseEvent cyMenuClick(iMenuKeyID, sMenuCaption)
+    RaiseEvent menuClassClick(iMenuKeyID, sMenuCaption)
     
 End Function
 
 Friend Function FireClose()
-    RaiseEvent cyMenuHide
+    RaiseEvent menuClassHide
     
 End Function
 

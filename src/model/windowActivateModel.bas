@@ -33,8 +33,8 @@ Public Function WndProcCheckWndActivate(ByVal hWnd As Long, ByVal Msg As Long, B
      
 End Function
 
-Private Function ptrCheckWndActivate() As cyCheckWndActivate
-    Dim CheckWndActivate As cyCheckWndActivate
+Private Function ptrCheckWndActivate() As checkWindowActivityClass
+    Dim CheckWndActivate As checkWindowActivityClass
     CopyMemory CheckWndActivate, objCheckWndActivate, 4&
     Set ptrCheckWndActivate = CheckWndActivate
     CopyMemory CheckWndActivate, 0&, 4&

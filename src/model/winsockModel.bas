@@ -7,7 +7,7 @@ Attribute VB_Name = "modWinsock"
 'Rosario, Argentina
 '
 '**************************************************************************************
-'This module contains API declarations and helper functions for the cyWinsock class
+'This module contains API declarations and helper functions for the winSockClass class
 '**************************************************************************************
 
 Option Explicit
@@ -536,10 +536,10 @@ Public Sub UnregisterResolution(ByVal lngAsynHandle As Long)
 Subclass_DelResolveMessage lngAsynHandle
 End Sub
 
-'It turns a cyWinsock instance pointer into an actual instance.
-Private Function SocketObjectFromPointer(ByVal lngPointer As Long) As cyWinsock
+'It turns a winSockClass instance pointer into an actual instance.
+Private Function SocketObjectFromPointer(ByVal lngPointer As Long) As winSockClass
 
-Dim objSocket As cyWinsock
+Dim objSocket As winSockClass
 
 api_CopyMemory objSocket, lngPointer, 4&
 Set SocketObjectFromPointer = objSocket
@@ -547,15 +547,15 @@ api_CopyMemory objSocket, 0&, 4&
 
 End Function
 
-'Assing a temporal instance of cyWinsock to a
+'Assing a temporal instance of winSockClass to a
 'socket and register this socket to the accept list.
 Public Sub RegisterAccept(ByVal lngSocket As Long)
 If m_colAcceptList Is Nothing Then
     Set m_colAcceptList = New Collection
     Debug.Print "OK Created accept collection"
 End If
-Dim Socket As cyWinsock
-Set Socket = New cyWinsock
+Dim Socket As winSockClass
+Set Socket = New winSockClass
 Socket.Accept lngSocket
 m_colAcceptList.Add Socket, "S" & lngSocket
 End Sub
@@ -585,7 +585,7 @@ End If
 End Sub
 
 'Return the accept instance class from a socket.
-Public Function GetAcceptClass(ByVal lngSocket As Long) As cyWinsock
+Public Function GetAcceptClass(ByVal lngSocket As Long) As winSockClass
 Set GetAcceptClass = m_colAcceptList("S" & lngSocket)
 End Function
 

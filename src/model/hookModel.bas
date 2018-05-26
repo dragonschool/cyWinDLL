@@ -39,8 +39,8 @@ Public Function HookProc(ByVal nCode As Long, ByVal wParam As Long, ByVal lParam
     Call CallNextHookEx(preHookProc, nCode, wParam, lParam)
 End Function
 
-Private Function ptrHook() As cyHookEx
-    Dim Hook As cyHookEx
+Private Function ptrHook() As hookClass
+    Dim Hook As hookClass
     CopyMemory Hook, objHook, 4&
     Set ptrHook = Hook
     CopyMemory Hook, 0&, 4&

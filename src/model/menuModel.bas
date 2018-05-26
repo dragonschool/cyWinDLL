@@ -1,6 +1,6 @@
 Attribute VB_Name = "modMenu"
 '**************************************************************************************************************
-'* 本模块配合 cyMenu 菜单类模块
+'* 本模块配合 menuClass 菜单类模块
 '*
 '* 版权: LPP软件工作室
 '* 作者: 卢培培(goodname008)
@@ -57,7 +57,7 @@ Public Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (Destination 
 ' -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- API 常量声明 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Public Const GWL_WNDPROC = (-4)                     ' SetWindowLong 设置窗口函数入口地址
-Public Const SM_CYMENU = 15                         ' GetSystemMetrics 获得系统菜单项高度
+Public Const SM_menuClass = 15                         ' GetSystemMetrics 获得系统菜单项高度
 
 Public Const WM_COMMAND = &H111                     ' 消息: 单击菜单项
 Public Const WM_DRAWITEM = &H2B                     ' 消息: 绘制菜单项
@@ -401,9 +401,9 @@ Private Sub MeasureItem(ByVal hWnd As Long, ByVal lParam As Long)
     hdc = GetDC(hWnd)
     CopyMemory MeasureInfo, ByVal lParam, Len(MeasureInfo)
     If MeasureInfo.CtlType And ODT_MENU Then
-        MeasureInfo.itemWidth = lstrlen(MyItemInfo(MeasureInfo.itemID).itemText) * (GetSystemMetrics(SM_CYMENU) / 2.5) + BarWidth + 15
+        MeasureInfo.itemWidth = lstrlen(MyItemInfo(MeasureInfo.itemID).itemText) * (GetSystemMetrics(SM_menuClass) / 2.5) + BarWidth + 15
         If MyItemInfo(MeasureInfo.itemID).itemType <> MIT_SEPARATOR Then
-            MeasureInfo.itemHeight = GetSystemMetrics(SM_CYMENU) + 2
+            MeasureInfo.itemHeight = GetSystemMetrics(SM_menuClass) + 2
         Else
             MeasureInfo.itemHeight = 6
         End If
@@ -451,8 +451,8 @@ Private Function OnMenuChar(wParam As Long, lngRetval As Long) As Boolean
 
 End Function
 
-Private Function ptrMenu() As cyMenu
-    Dim Menu As cyMenu
+Private Function ptrMenu() As menuClass
+    Dim Menu As menuClass
     CopyMemory Menu, objMenu, 4&
     Set ptrMenu = Menu
     CopyMemory Menu, 0&, 4&
@@ -591,7 +591,7 @@ Private Function OnDrawItem(ByVal StructPtr As Long) As Boolean
 End Function
 
 '自定义函数  根据指针获取一个对象
-Public Function GetMenuItemFromPtr(ByVal lngPtr As Long) As cyMenu
+Public Function GetMenuItemFromPtr(ByVal lngPtr As Long) As menuClass
    Dim oTemp As Object
    '实现技术：通过API函数CopyMemory,直接将对象长整型的值当作指针来用
    CopyMemory oTemp, lngPtr, 4

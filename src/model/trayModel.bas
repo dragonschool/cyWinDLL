@@ -58,8 +58,8 @@ Function WndProcTray(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As Long
     
 End Function
 
-Private Function ptrTray() As cyTrayEx
-    Dim Tray As cyTrayEx
+Private Function ptrTray() As trayClass
+    Dim Tray As trayClass
     CopyMemory Tray, objMouseWheel, 4&
     Set ptrTray = Tray
     CopyMemory Tray, 0&, 4&

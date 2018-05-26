@@ -7,8 +7,8 @@ Public Function CapturePhoto()
     
 End Function
 
-Private Function ptrPhoto() As cyPhotoEx
-    Dim Photo As cyPhotoEx
+Private Function ptrPhoto() As photoClass
+    Dim Photo As photoClass
     CopyMemory Photo, objPhoto, 4&
     Set ptrPhoto = Photo
     CopyMemory Photo, 0&, 4&
