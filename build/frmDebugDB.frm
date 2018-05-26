@@ -542,7 +542,6 @@ Attribute VB_Exposed = False
 Dim W As New cyWndEx
 Dim F As New cyFileEx
 Dim S As New cySystemEx
-Dim D As New cyDataBaseEx
 Dim sS As New cyStringEx
 
 Dim Rs As Recordset                 '公用暂存数据集
